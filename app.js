@@ -40,71 +40,104 @@ async function testJSONLoad() {
     }
 }
 
-async function renderCatalog() {
+async function renderCatalogAsTables() {
     try {
-        // Cargar los datos
         const technicalData = await loadJSON(technicalDataURL);
         const compatibilities = await loadJSON(compatibilitiesURL);
-        const assets = await loadJSON(assetsURL);
-
-        // Contenedor del catálogo
         const catalogContainer = document.getElementById("catalog");
-        catalogContainer.innerHTML = ""; // Limpia contenido previo
+        catalogContainer.innerHTML = "";
 
-        // Renderizar cada producto
-        technicalData.forEach(product => {
-            const partNumber = product.PartNumber;
+        const groupedByProductType = technicalData.reduce((acc, product) => {
+            if (!acc[product.Product]) {
+                acc[product.Product] = [];
+            }
+            acc[product.Product].push(product);
+            return acc;
+        }, {});
 
-            // Encontrar compatibilidades y assets relacionados
-            const productCompatibilities = compatibilities.filter(c => c.PartNumber === partNumber);
-            const productAsset = assets.find(a => a.SKU === partNumber);
-
-            // Determinar atributos dinámicos para el producto
-            const productType = product.Product;
+        for (const [productType, products] of Object.entries(groupedByProductType)) {
             const attributes = attributeMapping[productType] || ["C1", "C2", "C3", "C4", "C5", "C6"];
 
-            // Construir especificaciones dinámicas
-            let specifications = "<ul>";
-            attributes.forEach((attr, index) => {
-                const value = product[`C${index + 1}`];
-                if (value) {
-                    specifications += `<li><strong>${attr}:</strong> ${value}</li>`;
+            let sectionHTML = `
+                <div class="product-section">
+                    <h3>${productType}</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Part Number</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Año</th>
+                                ${attributes.map(attr => `<th>${attr}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            // Agrupar compatibilidades por marca y modelo
+            const groupedCompatibilities = compatibilities.reduce((acc, compatibility) => {
+                const { Make, Model, Year, PartNumber } = compatibility;
+                if (!acc[Make]) {
+                    acc[Make] = {};
                 }
-            });
-            specifications += "</ul>";
+                if (!acc[Make][Model]) {
+                    acc[Make][Model] = [];
+                }
+                acc[Make][Model].push({ Year, PartNumber });
+                return acc;
+            }, {});
 
-            // Construir compatibilidades
-            let compatibilityList = "<ul>";
-            if (productCompatibilities.length > 0) {
-                compatibilityList += productCompatibilities.map(c => `<li>${c.Make} ${c.Model} ${c.Year}</li>`).join('');
-            } else {
-                compatibilityList += "<li>No disponible</li>";
+            // Recorre cada marca
+            for (const [make, models] of Object.entries(groupedCompatibilities)) {
+                sectionHTML += `
+                    <tr class="subheading">
+                        <td colspan="100%" id="Marca" class="Marca">${make}</td>
+                    </tr>
+                `;
+
+                // Recorre cada modelo dentro de una marca
+                for (const [model, compatibilitiesForModel] of Object.entries(models)) {
+                    sectionHTML += `
+                        <tr class="subheading">
+                            <td colspan="100%" id="Modelo" class="Modelo">${model}</td>
+                        </tr>
+                    `;
+
+                    // Agregar filas para cada compatibilidad de ese modelo
+                    compatibilitiesForModel.forEach(({ Year, PartNumber }) => {
+                        const product = products.find(p => p.PartNumber === PartNumber);
+                        if (product) {
+                            sectionHTML += `
+                                <tr>
+                                    <td>${PartNumber}</td>
+                                    <td>${make}</td>
+                                    <td>${model}</td>
+                                    <td>${Year}</td>
+                                    ${attributes.map((attr, index) => {
+                                        const value = product[`C${index + 1}`];
+                                        return `<td>${value || 'N/A'}</td>`;
+                                    }).join('')}
+                                </tr>
+                            `;
+                        }
+                    });
+                }
             }
-            compatibilityList += "</ul>";
 
-            // Construir HTML del producto
-            const productHTML = `
-                <div class="product-card">
-                    <!-- <img src="https://${productAsset ? productAsset.URL : 'placeholder.jpg'}" alt="${product.Product}" /> -->
-                    <h3>${product.Product} (${product.PartNumber})</h3>
-                    <p><strong>Fabricante:</strong> ${product.MfrLabel}</p>
-                    <h4>Especificaciones:</h4>
-                    ${specifications}
-                    <h4>Compatibilidades:</h4>
-                    ${compatibilityList}
+            sectionHTML += `
+                        </tbody>
+                    </table>
                 </div>
             `;
 
-            // Agregar al contenedor
-            catalogContainer.innerHTML += productHTML;
-        });
+            catalogContainer.innerHTML += sectionHTML;
+        }
     } catch (error) {
-        console.error("Error rendering catalog:", error);
+        console.error("Error rendering catalog as tables:", error);
     }
 }
 
-// Llama a la función cuando la página se cargue
-document.addEventListener("DOMContentLoaded", renderCatalog);
+document.addEventListener("DOMContentLoaded", renderCatalogAsTables);
 
 document.addEventListener("DOMContentLoaded", testJSONLoad);
 
