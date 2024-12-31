@@ -84,7 +84,7 @@ h3 {
 }
 
 table {
-    width: 80%;
+    width: 90%;
     margin: 20px auto;
     border-collapse: collapse;
 }
@@ -121,4 +121,8 @@ tr:hover {
 
 .subheading th {
     text-align: center;
+}
+
+#year{
+    width: 15%;
 }

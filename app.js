@@ -55,6 +55,9 @@ async function renderCatalogAsTables() {
             return acc;
         }, {});
 
+
+        var i=0;
+        var j=0;
         for (const [productType, products] of Object.entries(groupedByProductType)) {
             const attributes = attributeMapping[productType] || ["C1", "C2", "C3", "C4", "C5", "C6"];
 
@@ -65,9 +68,7 @@ async function renderCatalogAsTables() {
                         <thead>
                             <tr>
                                 <th>Part Number</th>
-                                <th>Marca</th>
-                                <th>Modelo</th>
-                                <th>Año</th>
+                                <th id="year" class="year">Año</th>
                                 ${attributes.map(attr => `<th>${attr}</th>`).join('')}
                             </tr>
                         </thead>
@@ -89,29 +90,36 @@ async function renderCatalogAsTables() {
 
             // Recorre cada marca
             for (const [make, models] of Object.entries(groupedCompatibilities)) {
-                sectionHTML += `
-                    <tr class="subheading">
-                        <td colspan="100%" id="Marca" class="Marca">${make}</td>
-                    </tr>
-                `;
-
+                
+                i=0;
                 // Recorre cada modelo dentro de una marca
                 for (const [model, compatibilitiesForModel] of Object.entries(models)) {
-                    sectionHTML += `
-                        <tr class="subheading">
-                            <td colspan="100%" id="Modelo" class="Modelo">${model}</td>
-                        </tr>
-                    `;
-
+                    j=0;
                     // Agregar filas para cada compatibilidad de ese modelo
                     compatibilitiesForModel.forEach(({ Year, PartNumber }) => {
                         const product = products.find(p => p.PartNumber === PartNumber);
                         if (product) {
+                            if(i==0){
+                                sectionHTML += `
+                                    <tr class="subheading">
+                                        <td colspan="100%" id="Marca" class="Marca">${make}</td>
+                                    </tr>
+                                `;
+                                i=1;
+                            }
+
+                            if(j==0){
+                                sectionHTML += `
+                                    <tr class="subheading">
+                                        <td colspan="100%" id="Modelo" class="Modelo">${model}</td>
+                                    </tr>
+                                `;
+                                j=1;
+                            }
+
                             sectionHTML += `
                                 <tr>
                                     <td>${PartNumber}</td>
-                                    <td>${make}</td>
-                                    <td>${model}</td>
                                     <td>${Year}</td>
                                     ${attributes.map((attr, index) => {
                                         const value = product[`C${index + 1}`];
