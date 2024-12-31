@@ -1,0 +1,79 @@
+[
+    {
+        "Product":"A\/C Compressor",
+        "MfrLabel":"Deyac",
+        "PartNumber":"COMABM18101",
+        "C1":"R134a",
+        "C2":"5",
+        "C3":"110",
+        "C4":"12",
+        "C5":null,
+        "C6":null
+    },
+    {
+        "Product":"A\/C Compressor",
+        "MfrLabel":"Deyac",
+        "PartNumber":"COMABM21352",
+        "C1":"R134a",
+        "C2":"7PK",
+        "C3":"119mm",
+        "C4":"12V",
+        "C5":null,
+        "C6":null
+    },
+    {
+        "Product":"A\/C Compressor",
+        "MfrLabel":"Deyac",
+        "PartNumber":"COMABM22181",
+        "C1":"R134a",
+        "C2":"6",
+        "C3":"106",
+        "C4":"12",
+        "C5":null,
+        "C6":null
+    },
+    {
+        "Product":"Radiator",
+        "MfrLabel":"Deyac",
+        "PartNumber":"00150USAA16MM",
+        "C1":"44.92625",
+        "C2":"68.58",
+        "C3":"16",
+        "C4":"17 2\/3",
+        "C5":"27",
+        "C6":"5\/8"
+    },
+    {
+        "Product":"Radiator",
+        "MfrLabel":"Deyac",
+        "PartNumber":"0019USA23MMTM",
+        "C1":"35.56",
+        "C2":"65.7225",
+        "C3":"23",
+        "C4":"14",
+        "C5":"25 7\/8",
+        "C6":"1"
+    },
+    {
+        "Product":"Radiator",
+        "MfrLabel":"Deyac",
+        "PartNumber":"0019USAA16MM",
+        "C1":"35.56",
+        "C2":"65.7225",
+        "C3":"16",
+        "C4":"14",
+        "C5":"25 7\/8",
+        "C6":"5\/8"
+    },
+    {
+        "Product":"Radiator",
+        "MfrLabel":"Deyac",
+        "PartNumber":"0019USAA26MM",
+        "C1":"35.56",
+        "C2":"65.7225",
+        "C3":"26",
+        "C4":"14",
+        "C5":"25 7\/8",
+        "C6":"1"
+    }
+]
