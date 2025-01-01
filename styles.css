@@ -76,6 +76,7 @@ body {
 .product-section {
     text-align: center;
     margin-bottom: 40px;
+    background-color: #6b7172;
 }
 
 h3 {
@@ -125,4 +126,17 @@ tr:hover {
 
 #year{
     width: 15%;
+    background-color: #be3d16;
+}
+
+#FT{
+    background-color: #90acca;
+}
+
+#TColumnas{
+    background-color: #be3d16;
+}
+
+#Linea{
+    background-color: #b4cfc3;
 }
