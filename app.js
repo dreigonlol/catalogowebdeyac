@@ -6,8 +6,8 @@ const assetsURL = "./MAssets.json";
 
 
 const attributeMapping = {
-    "A/C Compressor": ["Tipo de Refrigerante", "Ranuras de Polea", "Diametro de Polea", "Voltaje de bobina"],
-    "Radiator": ["Alto in", "Ancho in", "Espesor cm"],
+    "A/C Compressor": ["<img src='./imagenes/automotive.png' alt='Part Number' id='Vtype' class='Vtype'>", "Ranuras de Polea", "Diametro de Polea", "Voltaje de bobina"],
+    "Radiator": ["<img src='./imagenes/height.png' alt='Part Number' id='VHeight' class='VHeight'>", "<img src='./imagenes/width.png' alt='Part Number' id='VWidth' class='VWidth'>", "<img src='./imagenes/espesor.png' alt='Part Number' id='VEspesor' class='VEspesor'>"],
     "A/C Condenser": ["Alto in", "Ancho in", "Espesor cm"],
     "A/C Condenser Fan": ["Ventiladores", "Aspas", "Pines"],
     "A/C Evaporator Core": ["Alto in", "Ancho in", "Espesor mm"],
@@ -52,6 +52,8 @@ const selectedColumnsMapping = {
     "Washer Fluid Reservoir": []
     // Agrega más configuraciones según sea necesario
 };
+
+
 
 // Función para cargar JSON
 async function loadJSON(url) {
@@ -109,8 +111,8 @@ async function renderCatalogAsTables() {
                     <table>
                         <thead>
                             <tr>
-                                <th id="TColumnas" class="TColumnas">Part Number</th>
-                                <th id="year" class="year">Año</th>
+                                <th id="TColumnas" class="TColumnas"><img src="./imagenes/automotive.png" alt="Part Number" id="Vtype" class="Vtype"></th>
+                                <th id="year" class="year"><img src="./imagenes/calendar.png" alt="Part Number" id="Vyear" class="Vyear"></th>
                                 ${attributes.map(attr => `<th id="TColumnas" class="TColumnas">${attr}</th>`).join('')}
                             </tr>
                         </thead>
@@ -163,7 +165,7 @@ async function renderCatalogAsTables() {
                 }
             }
 
-            sectionHTML += `</tbody></table></div>`;
+            sectionHTML += `</tbody></table></div><div style="page-break-after: always;"></div>`;
             catalogContainer.innerHTML += sectionHTML;
         }
     } catch (error) {

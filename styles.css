@@ -2,12 +2,12 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+    background-color: #f0f8ff; /* Color de fondo suave para la página */
 }
 
 header {
-    background: #007bff;
-    color: white;
+    /*background: #003f88; */ /* Azul oscuro */
+    color: rgb(0, 0, 0);
     padding: 1rem 0;
     text-align: center;
 }
@@ -43,12 +43,15 @@ header {
     gap: 20px;
 }
 
-#Marca{
-    background-color: #007bff;
+#Marca {
+    background-color: #0056b3;
+    color: white;
+    text-align: left;
 }
 
-#Modelo{
-    background-color: #f06250;
+#Modelo {
+    background-color: #BABBBD;
+    text-align: left;
 }
 
 .product {
@@ -67,16 +70,12 @@ header {
     padding-left: 20px;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    line-height: 1.6;
-}
-
 .product-section {
     text-align: center;
     margin-bottom: 40px;
     background-color: #6b7172;
+    width: 100%;
+    display: block;
 }
 
 h3 {
@@ -85,32 +84,35 @@ h3 {
 }
 
 table {
-    width: 90%;
+    width: 100%; /* Tablas ocupan todo el ancho disponible */
     margin: 20px auto;
     border-collapse: collapse;
+    border: 2px solid #003f88; /* Bordes principales */
+    background-color: #f8fbff; /* Fondo claro de la tabla */
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
+    border: 1px solid #0056b3; /* Bordes de celdas */
+    padding: 12px;
+    text-align: left;
 }
 
-th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
+
 
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #e3f2fd; /* Azul claro para filas pares */
+}
+
+tr:nth-child(odd) {
+    background-color: #f8fbff; /* Fondo claro para filas impares */
 }
 
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: #d1ecf1; /* Resalta la fila al pasar el mouse */
 }
 
 .subheading {
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     font-weight: bold;
     text-align: left;
     padding-left: 10px;
@@ -124,19 +126,160 @@ tr:hover {
     text-align: center;
 }
 
-#year{
+#year {
     width: 15%;
-    background-color: #be3d16;
+    background-color: #ffffff;
+    text-align: center;
 }
 
-#FT{
-    background-color: #90acca;
+#FT {
+    background-color: #ffffff;
 }
 
-#TColumnas{
-    background-color: #be3d16;
+#TColumnas {
+    background-color: #ffffff;
+    text-align: center;
 }
 
-#Linea{
+#Linea {
     background-color: #b4cfc3;
+}
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+    .product-section {
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        font-size: 0.9em;
+        padding: 6px;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+}
+
+/* Estilos para impresión */
+@media print {
+    body {
+        font-size: 12pt;
+        background-color: white; /* Blanco para impresión */
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        page-break-before: avoid;
+        color: #000;
+        margin: 0;
+        padding: 1rem;
+        text-align: center;
+        font-size: 18pt;
+    }
+
+    main {
+        margin: 0 auto;
+        padding: 10mm;
+    }
+
+    table {
+        width: 100%;
+        font-size: 10pt;
+        border: 1px solid #000; /* Negro para impresión */
+        background-color: #a4c6f1 !important; /* Forzar fondo claro */
+    }
+
+    th, td {
+        border: 1px solid #000; /* Negro para bordes en impresión */
+        padding: 10px;
+        color: black; /* Texto negro para visibilidad */
+    }
+
+    th {
+        background-color: #ffffff !important; /* Forzar fondo de encabezados */
+        background: #ffffff !important;
+        color: rgb(0, 0, 0) !important; /* Texto blanco para encabezados */
+    }
+
+    tr:nth-child(odd) {
+        background-color: #ffffff !important; /* Forzar fondo claro */
+    }
+
+    tr:nth-child(even) {
+        background-color: #ffffff !important; /* Forzar fondo azul claro */
+    }
+
+    .print-button {
+        display: none !important;
+    }
+
+    #year {
+        width: 15%;
+        background-color: #BABBBD;
+    }
+    
+    #FT {
+        background-color: #BABBBD;
+    }
+    
+    #TColumnas {
+        background-color: #BABBBD;
+    }
+    
+    #Linea {
+        background-color: #BABBBD;
+    }
+
+    @page {
+        size: letter;
+        margin: 20mm;
+    }
+}
+
+
+.print-button {
+    margin: 20px;
+    padding: 10px;
+    background-color: #003f88;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+}
+
+th {
+    background-color: #ffffff; /* Azul oscuro para encabezados */
+    color: black; /* Texto blanco para contraste */
+    font-weight: bold;
+}
+
+#Vtype{
+    width: 20%;
+    height: 20%;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
+#Vyear{
+    width: 50%;
+    height: 50%;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
+#VHeight, #VWidth, #VEspesor{
+    width: 20%;
+    height: 20%;
+    text-align: center;
+    align-items: center;
+    align-content: center;
 }
